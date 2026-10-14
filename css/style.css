@@ -1,0 +1,438 @@
+/* =========================================================
+   AURI – style.css (Bagian 1: Navbar + Hero/Carousel)
+
+   CARA BACA FILE INI
+   1. VARIABEL  : semua warna, ukuran, font ada di atas. Ubah di sini saja.
+   2. FONT      : cara memasang font Open Sauce.
+   3. UMUM      : reset sederhana.
+   4. NAVBAR    : bilah atas.
+   5. HERO      : blok biru + carousel.
+   6. LAYAR KECIL: penyesuaian untuk HP/tablet.
+
+   Catatan ukuran:
+   Ukuran desain asli Anda (1366 × 768) diubah jadi satuan
+   yang MENYESUAIKAN LAYAR:
+     vw  = 1% lebar layar
+     vh  = 1% tinggi layar
+     clamp(min, ideal, max) = "pakai ukuran ideal, tapi jangan
+                               lebih kecil dari min / lebih besar dari max"
+   ========================================================= */
+
+
+/* =========================================================
+   1. VARIABEL  (ubah nilai di sini)
+   ========================================================= */
+:root {
+  /* --- Warna --- */
+  --warna-hitam:        #000000;
+  --warna-putih:        #ffffff;
+  --warna-biru:         #053a82;   /* blok biru */
+  --warna-masuk-bg:     #ffedd1;   /* latar tombol Masuk */
+  --warna-masuk-teks:   #737373;   /* teks Masuk */
+  --warna-abu:          #bcb5b5;   /* nama ilmiah & bilah telusuri */
+  --warna-btn-acak:     #2a62b0;
+  --warna-btn-simpan:   #1b7a1f;
+  --warna-btn-games:    #12857a;
+
+  /* --- Font --- */
+  --font-utama: "Open Sauce", "Open Sauce One", "Open Sauce Sans",
+                system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  /* --- Tinggi bilah atas (desain asli 136px) --- */
+  --navbar-tinggi: clamp(64px, 11vh, 136px);
+
+  /* --- Tinggi bilah "Telusuri" dan bilah informasi (desain asli 55px) --- */
+  --bilah-tinggi: clamp(36px, 5.5vh, 55px);
+
+  /* --- Ukuran teks --- */
+  --teks-menu:  clamp(16px, 1.83vw, 25px);   /* desain asli 25px */
+  --teks-bilah: clamp(11px, 1.1vw, 15px);    /* desain asli 15px */
+  --teks-judul: clamp(26px, min(3.66vw, 8vh), 56px);  /* desain asli 50px */
+  --teks-tombol: clamp(13px, min(1.46vw, 2.9vh), 20px); /* desain asli 20px */
+
+  /* --- Ukuran bagian Taksa --- */
+  --taksa-lingkaran: clamp(140px, 19vw, 260px);   /* desain asli 260px */
+  --teks-taksa-judul: clamp(26px, 2.93vw, 40px);  /* desain asli 40px */
+  --teks-taksa-nama:  clamp(20px, 2.56vw, 35px);  /* desain asli 35px */
+  --teks-taksa-desk:  clamp(14px, 1.61vw, 22px);  /* desain asli 22px */
+}
+
+
+/* =========================================================
+   2. FONT  (Open Sauce)
+   ---------------------------------------------------------
+   Taruh file font di folder "fonts/", lalu sesuaikan nama
+   file di bawah. Selama file belum ada, browser otomatis
+   memakai font cadangan (lihat --font-utama di atas).
+   ========================================================= */
+@font-face {
+  font-family: "Open Sauce";
+  src: url("../fonts/OpenSauceOne-Regular.woff2") format("woff2");
+  font-weight: 400;          /* Cetak Reguler */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sauce";
+  src: url("../fonts/OpenSauceOne-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;        /* Cetak Miring */
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sauce";
+  src: url("../fonts/OpenSauceOne-Medium.woff2") format("woff2");
+  font-weight: 500;          /* Cetak Sedang */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sauce";
+  src: url("../fonts/OpenSauceOne-SemiBold.woff2") format("woff2");
+  font-weight: 600;          /* Cetak Semitebal */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sauce";
+  src: url("../fonts/OpenSauceOne-Bold.woff2") format("woff2");
+  font-weight: 700;          /* Cetak Tebal */
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* =========================================================
+   3. UMUM
+   ========================================================= */
+* {
+  box-sizing: border-box;   /* padding tidak menambah ukuran elemen */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-utama);
+  color: var(--warna-hitam);
+  background: var(--warna-putih);
+}
+
+a { text-decoration: none; color: inherit; }
+button { font: inherit; border: none; background: none; cursor: pointer; }
+img { display: block; max-width: 100%; }
+
+/* Ikon SVG mengikuti ukuran teks di sekitarnya */
+.icon { width: 1em; height: 1em; flex-shrink: 0; }
+
+/* Garis bantu saat navigasi memakai keyboard */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid #ffb703;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   4. NAVBAR (bilah atas)
+   ========================================================= */
+.navbar {
+  height: var(--navbar-tinggi);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: clamp(16px, 2.6vw, 40px);
+  background: var(--warna-putih);
+}
+
+.navbar__logo img {
+  height: calc(var(--navbar-tinggi) * 0.5);   /* tinggi logo = 50% bilah atas */
+  width: auto;
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  align-self: stretch;                  /* menu setinggi bilah atas */
+  gap: clamp(20px, 4.5vw, 64px);        /* jarak antar menu */
+}
+
+/* Kontribusi, Galeri, Berita */
+.navbar__link {
+  font-size: var(--teks-menu);
+  font-weight: 500;                     /* Cetak Sedang */
+  color: var(--warna-hitam);
+}
+.navbar__link:hover { text-decoration: underline; text-underline-offset: 6px; }
+
+/* Blok krem "Masuk" (desain asli 306 × 136) */
+.navbar__masuk {
+  align-self: stretch;                  /* setinggi bilah atas */
+  width: clamp(170px, 22.4vw, 306px);   /* desain asli 306px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  background: var(--warna-masuk-bg);
+  color: var(--warna-masuk-teks);
+  font-size: var(--teks-menu);
+  font-weight: 500;
+}
+.navbar__masuk:hover { filter: brightness(0.97); }
+.navbar__masuk .icon--caret { width: 0.8em; height: 0.8em; color: var(--warna-hitam); }
+.navbar__masuk .icon:not(.icon--caret) { color: var(--warna-hitam); }
+
+
+/* =========================================================
+   5. HERO (blok biru + carousel)
+   ---------------------------------------------------------
+   Tinggi hero = tinggi layar dikurangi tinggi navbar,
+   sehingga navbar + carousel + bilah informasi selalu
+   terlihat penuh tanpa perlu scroll.
+   ========================================================= */
+.hero {
+  display: grid;
+  grid-template-columns: 37fr 63fr;     /* 506 : 859 seperti desain asli */
+  height: calc(100vh - var(--navbar-tinggi));    /* cadangan browser lama */
+  height: calc(100dvh - var(--navbar-tinggi));
+  min-height: 380px;                    /* jaga-jaga layar sangat pendek */
+}
+
+/* ---------- 5a. Blok biru ---------- */
+.hero__panel {
+  background: var(--warna-biru);
+  color: var(--warna-putih);
+  padding-inline: clamp(24px, 4vw, 60px);
+
+  display: flex;
+  flex-direction: column;
+  /* space-evenly = jarak atas, jarak tengah, dan jarak bawah SAMA RATA.
+     Inilah yang membuat jarak judul–tepi atas = judul–tombol = tombol–tepi bawah */
+  justify-content: space-evenly;
+}
+
+.hero__title {
+  font-size: var(--teks-judul);
+  font-weight: 400;                     /* Cetak Reguler */
+  line-height: 1.2;                     /* jarak antarbaris */
+}
+
+/* Tiga tombol kecil. Ukuran font diatur di sini, tombol memakai satuan "em"
+   supaya ikut mengecil/membesar bersama teks. */
+.hero__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  font-size: var(--teks-tombol);
+  max-width: 15em;      /* batas lebar → "Mainkan games" turun ke baris kedua */
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  height: 2.85em;                       /* ≈ 57px saat font 20px */
+  padding-inline: 0.8em;
+  color: var(--warna-putih);
+  font-weight: 700;                     /* Cetak Tebal */
+  white-space: nowrap;
+}
+.btn:hover { filter: brightness(1.15); }
+
+.btn--acak     { background: var(--warna-btn-acak); }
+.btn--disimpan { background: var(--warna-btn-simpan); }
+.btn--games    { background: var(--warna-btn-games); }
+
+
+/* ---------- 5b. Carousel ---------- */
+.carousel {
+  position: relative;                   /* acuan posisi untuk elemen melayang */
+  overflow: hidden;
+  background: var(--warna-hitam);
+}
+
+/* Deretan slide: bisa digeser dengan jari / trackpad */
+.carousel__track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;        /* berhenti pas di tiap gambar */
+  scrollbar-width: none;                /* sembunyikan scrollbar (Firefox) */
+}
+.carousel__track::-webkit-scrollbar { display: none; }   /* (Chrome/Safari) */
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;                       /* satu slide = selebar carousel */
+  height: 100%;
+  scroll-snap-align: start;
+}
+
+.slide__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* gambar memenuhi blok tanpa gepeng; tepi boleh terpotong */
+}
+
+/* Bilah telusuri di atas gambar (desain asli 859 × 55, transparan 25%) */
+.carousel__search {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 2;
+  height: var(--bilah-tinggi);
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding-inline: clamp(12px, 1.8vw, 24px);
+  background: rgba(188, 181, 181, 0.25);   /* #bcb5b5 transparansi 25% */
+  color: var(--warna-putih);
+  font-size: var(--teks-bilah);
+  font-weight: 400;
+}
+
+/* Bilah informasi hitam di bawah (desain asli 859 × 55) */
+.slide__info {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: var(--bilah-tinggi);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;       /* nama di kiri, sumber di kanan */
+  gap: 1em;
+  padding-inline: clamp(12px, 1.8vw, 24px);
+  background: var(--warna-hitam);
+  font-size: var(--teks-bilah);
+}
+
+.slide__indonesia {                     /* Nama Indonesia */
+  font-weight: 700;
+  color: var(--warna-putih);
+}
+.slide__ilmiah {                        /* Nama ilmiah */
+  font-weight: 400;
+  font-style: italic;
+  color: var(--warna-abu);
+  margin-left: 0.4em;
+}
+.slide__source {                        /* Sumber gambar */
+  font-weight: 400;
+  color: var(--warna-putih);
+  white-space: nowrap;
+}
+
+/* Empat bulatan penanda */
+.carousel__dots {
+  position: absolute;
+  z-index: 2;
+  left: clamp(20px, 3vw, 44px);
+  bottom: calc(var(--bilah-tinggi) + clamp(12px, 3vh, 28px));
+  display: flex;
+  gap: clamp(14px, 2.4vw, 32px);
+}
+.carousel__dot {
+  width: clamp(10px, 1.1vw, 16px);
+  height: clamp(10px, 1.1vw, 16px);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  transition: background 0.3s;
+}
+.carousel__dot.is-active { background: var(--warna-putih); }   /* bulatan aktif */
+
+/* Tombol bagikan */
+.carousel__share {
+  position: absolute;
+  z-index: 2;
+  right: clamp(12px, 1.8vw, 24px);
+  bottom: calc(var(--bilah-tinggi) + clamp(12px, 3vh, 28px));
+  font-size: clamp(18px, 1.6vw, 24px);
+  color: var(--warna-putih);
+  display: flex;
+}
+
+
+/* =========================================================
+   6. LAYAR KECIL (tablet & HP) – blok biru di atas, carousel di bawah
+   ========================================================= */
+@media (max-width: 800px) {
+  :root {
+    --teks-menu: 14px;
+    --teks-bilah: 12px;
+  }
+
+  .navbar__menu { gap: 14px; }
+  .navbar__masuk { width: auto; padding-inline: 14px; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .hero__panel { padding-block: 32px; gap: 28px; }
+  .hero__title { font-size: 32px; }
+  .hero__buttons { font-size: 16px; }
+  .carousel { height: 70vw; min-height: 280px; }
+}
+
+
+/* Hormati pengguna yang mematikan animasi di perangkatnya */
+@media (prefers-reduced-motion: reduce) {
+  .carousel__dot { transition: none; }
+}
+
+/* =========================================================
+   7. TAKSA
+   ========================================================= */
+.taksa {
+  background: var(--warna-putih);
+  padding: clamp(24px, 4vw, 56px) clamp(20px, 3.8vw, 52px) clamp(32px, 5vw, 72px);
+}
+
+.taksa__judul {
+  font-size: var(--teks-taksa-judul);
+  font-weight: 600;                       /* Cetak Semitebal */
+}
+
+/* Tiga kolom sama lebar */
+.taksa__daftar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 3vw, 48px);
+  margin-top: clamp(16px, 2.5vw, 36px);
+}
+
+/* Satu kartu = satu tombol (lingkaran + judul + deskripsi) */
+.taksa__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.taksa__item:hover { transform: translateY(-4px); }
+
+.taksa__gambar {
+  width: var(--taksa-lingkaran);
+  height: var(--taksa-lingkaran);
+  border-radius: 50%;                     /* memotong gambar jadi lingkaran */
+  object-fit: cover;
+}
+
+.taksa__nama {
+  margin-top: 0.3em;
+  font-size: var(--teks-taksa-nama);
+  font-weight: 500;                       /* Cetak Sedang */
+  line-height: 1.2;
+}
+.taksa__item:hover .taksa__nama { text-decoration: underline; text-underline-offset: 6px; }
+
+.taksa__deskripsi {
+  margin-top: 0.4em;
+  max-width: 14em;                        /* supaya turun baris rapi seperti desain */
+  font-size: var(--teks-taksa-desk);
+  font-weight: 400;                       /* Cetak Reguler */
+  line-height: 1.25;
+}
+
+/* Layar kecil: tiga kolom jadi bertumpuk */
+@media (max-width: 800px) {
+  .taksa__daftar { grid-template-columns: 1fr; gap: 32px; }
+  .taksa__nama { font-size: 24px; }
+  .taksa__deskripsi { font-size: 16px; }
+}

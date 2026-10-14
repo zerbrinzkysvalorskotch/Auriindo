@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auri – Jelajahi Biodiversitas Indonesia</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =====================================================
+       1. BILAH ATAS (NAVBAR)
+       ===================================================== -->
+  <header class="navbar">
+
+    <!-- Logo: ganti file images/logo.svg dengan logo asli Anda -->
+    <a href="index.html" class="navbar__logo">
+      <img src="images/logo.svg" alt="Auri" height="50">
+    </a>
+
+    <nav class="navbar__menu">
+      <a href="#" class="navbar__link">Kontribusi</a>
+      <a href="#" class="navbar__link">Galeri</a>
+      <a href="#" class="navbar__link">Berita</a>
+
+      <!-- Tombol Masuk (ada blok krem + ikon bahasa) -->
+      <a href="#" class="navbar__masuk">
+        <span>Masuk</span>
+        <!-- ikon globe -->
+        <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+        </svg>
+        <!-- ikon panah bawah -->
+        <svg width="20" height="20" class="icon icon--caret" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3 7h18L12 19z"/>
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <!-- =====================================================
+         2. BILAH UTAMA (HERO): blok biru + carousel
+         ===================================================== -->
+    <section class="hero">
+
+      <!-- 2a. Blok biru di kiri -->
+      <div class="hero__panel">
+        <h1 class="hero__title">Jelajahi biodiversitas Indonesia</h1>
+
+        <div class="hero__buttons">
+          <a href="#" class="btn btn--acak">
+            <!-- ikon acak -->
+            <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+            </svg>
+            Acak
+          </a>
+          <a href="#" class="btn btn--disimpan">
+            <!-- ikon bookmark -->
+            <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6 2h12a1 1 0 0 1 1 1v19l-7-4-7 4V3a1 1 0 0 1 1-1z"/>
+            </svg>
+            Disimpan
+          </a>
+          <a href="#" class="btn btn--games">
+            <!-- ikon play -->
+            <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6 3l15 9-15 9z"/>
+            </svg>
+            Mainkan games
+          </a>
+        </div>
+      </div>
+
+
+      <!-- 2b. Carousel di kanan -->
+      <div class="carousel">
+
+        <!-- Bilah "Telusuri" (melayang di atas gambar) -->
+        <div class="carousel__search">
+          <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7"/><path d="M21 21l-6-6"/>
+          </svg>
+          <span>Telusuri</span>
+        </div>
+
+        <!-- Deretan slide. Mau tambah/kurangi gambar? Salin-hapus blok <figure> -->
+        <div class="carousel__track" id="carouselTrack">
+
+          <!-- SLIDE 1 -->
+          <figure class="slide">
+            <img class="slide__img" src="images/contoh-1.svg" alt="Katak Candrageni">
+            <figcaption class="slide__info">
+              <span class="slide__name">
+                <strong class="slide__indonesia">Katak Candrageni</strong>
+                <em class="slide__ilmiah">Philotes candrageni</em>
+              </span>
+              <span class="slide__source">© Alamsyah Elang Nusa H. (2026)</span>
+            </figcaption>
+          </figure>
+
+          <!-- SLIDE 2 -->
+          <figure class="slide">
+            <img class="slide__img" src="images/contoh-2.svg" alt="Nama spesies 2">
+            <figcaption class="slide__info">
+              <span class="slide__name">
+                <strong class="slide__indonesia">Nama Indonesia 2</strong>
+                <em class="slide__ilmiah">Nama ilmiah 2</em>
+              </span>
+              <span class="slide__source">© Nama fotografer (2026)</span>
+            </figcaption>
+          </figure>
+
+          <!-- SLIDE 3 -->
+          <figure class="slide">
+            <img class="slide__img" src="images/contoh-3.svg" alt="Nama spesies 3">
+            <figcaption class="slide__info">
+              <span class="slide__name">
+                <strong class="slide__indonesia">Nama Indonesia 3</strong>
+                <em class="slide__ilmiah">Nama ilmiah 3</em>
+              </span>
+              <span class="slide__source">© Nama fotografer (2026)</span>
+            </figcaption>
+          </figure>
+
+          <!-- SLIDE 4 -->
+          <figure class="slide">
+            <img class="slide__img" src="images/contoh-4.svg" alt="Nama spesies 4">
+            <figcaption class="slide__info">
+              <span class="slide__name">
+                <strong class="slide__indonesia">Nama Indonesia 4</strong>
+                <em class="slide__ilmiah">Nama ilmiah 4</em>
+              </span>
+              <span class="slide__source">© Nama fotografer (2026)</span>
+            </figcaption>
+          </figure>
+
+        </div>
+
+        <!-- Empat bulatan penanda (jumlahnya harus sama dengan jumlah slide) -->
+        <div class="carousel__dots">
+          <button class="carousel__dot is-active" aria-label="Gambar 1"></button>
+          <button class="carousel__dot" aria-label="Gambar 2"></button>
+          <button class="carousel__dot" aria-label="Gambar 3"></button>
+          <button class="carousel__dot" aria-label="Gambar 4"></button>
+        </div>
+
+        <!-- Tombol bagikan -->
+        <button class="carousel__share" aria-label="Bagikan">
+          <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <path d="M8.5 10.5l7-4M8.5 13.5l7 4" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         3. TAKSA
+         ===================================================== -->
+    <section class="taksa">
+      <h2 class="taksa__judul">Taksa</h2>
+
+      <div class="taksa__daftar">
+
+        <!-- Vertebrata (seluruh blok ini adalah tombol/link) -->
+        <a href="#" class="taksa__item">
+          <img class="taksa__gambar" src="images/taksa-vertebrata.svg" alt="">
+          <h3 class="taksa__nama">Vertebrata</h3>
+          <p class="taksa__deskripsi">Mamalia, Burung, Ikan, Reptil, dan Amfibi</p>
+        </a>
+
+        <!-- Invertebrata -->
+        <a href="#" class="taksa__item">
+          <img class="taksa__gambar" src="images/taksa-invertebrata.svg" alt="">
+          <h3 class="taksa__nama">Invertebrata</h3>
+          <p class="taksa__deskripsi">Serangga, Krustasea, Moluska, Porifera, Arakhnida, dll</p>
+        </a>
+
+        <!-- Plantae & Fungi -->
+        <a href="#" class="taksa__item">
+          <img class="taksa__gambar" src="images/taksa-plantae-fungi.svg" alt="">
+          <h3 class="taksa__nama">Plantae &amp; Fungi</h3>
+          <p class="taksa__deskripsi">Bunga-canga, Kayu-kayan, Rumput-rumpai, Jamur-cendawan</p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Section berikutnya (Museum, Berita, dst.) ditambahkan di bawah sini -->
+
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
