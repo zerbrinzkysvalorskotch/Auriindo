@@ -100,6 +100,19 @@
   border-radius: 4px;
 }
 
+/* Kotak telusuri */
+.filter__kolom--cari { flex: 1 1 260px; max-width: 380px; }
+.filter input[type="search"] {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  font: inherit;
+  font-weight: 400;
+  background: var(--warna-putih);
+  border: 1px solid var(--warna-garis);
+  border-radius: 4px;
+}
+
 .filter__reset {
   height: 36px;
   padding: 0 16px;
