@@ -92,6 +92,12 @@ function buatSlug(teks) {
   return teks.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+// Menyeragamkan teks untuk pencarian: huruf kecil dan tanpa tanda aksen
+// (jadi "Kancil" dan "kancil" dianggap sama)
+function normalisasi(teks) {
+  return (teks || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 // Urutkan teks sesuai abjad bahasa Indonesia
 function urutAbjad(daftar) {
   return daftar.slice().sort(function (a, b) { return a.localeCompare(b, "id"); });
@@ -135,6 +141,10 @@ async function muatKelompok(kunci) {
       sebaran:   rapikan(b[KOLOM.sebaran]),
       status:    rapikan(b[KOLOM.status])
     });
+
+    // Teks gabungan untuk fitur telusuri (nama ilmiah, Inggris, Indonesia, famili)
+    const entri = data[data.length - 1];
+    entri.teksCari = normalisasi([entri.ilmiah, entri.inggris, entri.indonesia, entri.famili].join(" "));
   });
 
   cacheData[kunci] = data;
@@ -229,8 +239,13 @@ function terapkanFilter() {
   const famili  = pilihFamili.value;
   const sebaran = pilihSebaran.value;
   const status  = pilihStatus.value;
+  // Kata kunci pencarian dipecah per kata; semua kata harus ditemukan
+  const kataKunci = normalisasi(kotakCari.value).split(" ").filter(function (k) { return k !== ""; });
 
   hasilFilter = semuaData.filter(function (d) {
+    for (let i = 0; i < kataKunci.length; i++) {
+      if (d.teksCari.indexOf(kataKunci[i]) === -1) return false;
+    }
     if (famili && d.famili !== famili) return false;
     if (status && d.status !== status) return false;
     if (sebaran) {
@@ -326,6 +341,7 @@ function keHalaman(nomor) {
 
 // Ambil elemen-elemen dari HTML
 const kotakKelompok     = document.querySelectorAll("#pilihanKelompok input");
+const kotakCari         = document.getElementById("kotakCari");
 const pilihFamili       = document.getElementById("filterFamili");
 const pilihSebaran      = document.getElementById("filterSebaran");
 const pilihStatus       = document.getElementById("filterStatus");
@@ -355,6 +371,9 @@ kotakKelompok.forEach(function (kotak) {
   p.addEventListener("change", terapkanFilter);
 });
 
+// Mengetik di kotak telusuri -> saring langsung
+kotakCari.addEventListener("input", terapkanFilter);
+
 // Jumlah entri per halaman berubah -> kembali ke halaman 1
 pilihJumlah.addEventListener("change", function () {
   halamanSekarang = 1;
@@ -363,6 +382,7 @@ pilihJumlah.addEventListener("change", function () {
 
 // Tombol atur ulang: kosongkan semua filter
 tombolReset.addEventListener("click", function () {
+  kotakCari.value = "";
   pilihFamili.value = "";
   pilihSebaran.value = "";
   pilihStatus.value = "";
