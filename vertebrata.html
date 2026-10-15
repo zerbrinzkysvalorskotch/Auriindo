@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vertebrata – Auri</title>
+
+  <!-- style.css = gaya umum situs, daftar.css = gaya khusus halaman daftar -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/daftar.css">
+</head>
+<body>
+
+  <!-- =====================================================
+       BILAH ATAS (salinan dari index.html – kalau menu diubah di sana,
+       ubah juga di sini)
+       ===================================================== -->
+  <header class="navbar">
+    <a href="index.html" class="navbar__logo">
+      <img src="images/logo.svg" alt="Auri" height="50">
+    </a>
+
+    <nav class="navbar__menu">
+      <a href="#" class="navbar__link">Kontribusi</a>
+      <a href="#" class="navbar__link">Galeri</a>
+      <a href="#" class="navbar__link">Berita</a>
+
+      <a href="#" class="navbar__masuk">
+        <span>Masuk</span>
+        <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+        </svg>
+        <svg width="20" height="20" class="icon icon--caret" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3 7h18L12 19z"/>
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <!-- =====================================================
+         1. KOP: judul + lima kotak centang kelompok
+         ===================================================== -->
+    <section class="kop">
+      <h1 class="kop__judul">Vertebrata</h1>
+      <p class="kop__sub">Daftar periksa spesies. Pilih kelompok yang ingin ditampilkan.</p>
+
+      <!-- Nilai "value" harus sama dengan nama kunci di KELOMPOK pada js/daftar.js -->
+      <div class="kop__pilihan" id="pilihanKelompok">
+        <label class="kotak"><input type="checkbox" value="mamalia" checked> Mamalia</label>
+        <label class="kotak"><input type="checkbox" value="burung"> Burung</label>
+        <label class="kotak"><input type="checkbox" value="ikan"> Ikan</label>
+        <label class="kotak"><input type="checkbox" value="reptil"> Reptil</label>
+        <label class="kotak"><input type="checkbox" value="amfibi"> Amfibi</label>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         2. BILAH FILTER
+         ===================================================== -->
+    <section class="filter">
+
+      <label class="filter__kolom">
+        <span>Famili</span>
+        <select id="filterFamili"><option value="">Semua famili</option></select>
+      </label>
+
+      <label class="filter__kolom">
+        <span>Sebaran</span>
+        <select id="filterSebaran"><option value="">Semua sebaran</option></select>
+      </label>
+
+      <label class="filter__kolom">
+        <span>Status konservasi</span>
+        <select id="filterStatus"><option value="">Semua status</option></select>
+      </label>
+
+      <label class="filter__kolom">
+        <span>Entri per halaman</span>
+        <select id="jumlahPerHalaman">
+          <option value="30">30</option>
+          <option value="50">50</option>
+          <option value="75">75</option>
+        </select>
+      </label>
+
+      <button class="filter__reset" id="tombolReset" type="button">Atur ulang</button>
+    </section>
+
+
+    <!-- =====================================================
+         3. TABEL DAFTAR PERIKSA
+         ===================================================== -->
+    <section class="daftar">
+
+      <!-- Pesan: "Memuat data…", error, atau "tidak ada entri" -->
+      <p class="daftar__pesan" id="pesan" aria-live="polite"></p>
+
+      <div class="tabel-bungkus" id="tabelBungkus">
+        <table class="tabel">
+          <thead>
+            <tr>
+              <th class="kol-no">No</th>
+              <th>Famili</th>
+              <th>Nama ilmiah</th>
+              <th>Nama Inggris</th>
+              <th>Nama Indonesia</th>
+              <th>Sebaran</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <!-- Baris-baris diisi otomatis oleh js/daftar.js -->
+          <tbody id="isiTabel"></tbody>
+        </table>
+      </div>
+
+      <!-- Panah halaman di bawah tabel -->
+      <nav class="halaman" aria-label="Halaman tabel">
+        <button class="halaman__panah" id="tombolSebelumnya" type="button" aria-label="Halaman sebelumnya">
+          <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <span class="halaman__info" id="infoHalaman"></span>
+        <button class="halaman__panah" id="tombolBerikutnya" type="button" aria-label="Halaman berikutnya">
+          <svg width="20" height="20" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </nav>
+
+    </section>
+
+  </main>
+
+  <script src="js/daftar.js"></script>
+</body>
+</html>
