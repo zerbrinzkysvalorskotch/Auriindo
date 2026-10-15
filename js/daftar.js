@@ -28,7 +28,7 @@ const KELOMPOK = {
   mamalia: { nama: "Mamalia", gid: "0" },   // <- cek: sesuaikan dengan gid tab Mamalia Anda
   burung:  { nama: "Burung",  gid: ""  },
   ikan:    { nama: "Ikan",    gid: ""  },
-  reptil:  { nama: "Reptil",  gid: ""  },
+  reptil:  { nama: "Reptil",  gid: "1997326984"  },
   amfibi:  { nama: "Amfibi",  gid: ""  }
 };
 
